@@ -10,21 +10,47 @@ namespace labcs
     {
         static void Main(string[] args)
         {
-            Triangle triangle = new Triangle();
+            int n;
+            Console.WriteLine("Enter the number of triangles");
+            n = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine(triangle.getSide());
-            triangle.exist();
-            Console.WriteLine(triangle.getPerimeter());
-            Console.WriteLine(triangle.getSquare());
+            Triangle[] triangle = new Triangle[n];
 
-            Triangles triangles = new Triangles(20);
-            triangles.printTriangles();
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("NUMBER: " + (i + 1));
+                triangle[i] = new Triangle();
+                triangle[i].PrintPoints();
+                triangle[i].SideLength();
+                triangle[i].Exists();
+                triangle[i].GetAngles();
 
-            //int minN = triangles.findWithdMinMed();
-            ////            Console.WriteLine($"Quadrant with max square: {maxN+1}");
-            ////            quadrants.Quadrants_[maxN].printQuadrant();
-            //Console.WriteLine("All min:");
-            //triangles.printAllWithSquare(triangles.Triangles_[minN].getSquare());
+                Console.WriteLine("Perimeter = " + triangle[i].GetPerimeter());
+                Console.WriteLine("Suare = " + triangle[i].GetSquare());
+                Console.WriteLine("----------------------------------");
+            }
+
+            Console.WriteLine("Equal triangles: ");
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    bool isEqual = true;
+                    for (int k = 0; k < 3; k++)
+                    {
+                        if (triangle[i].side[k] != triangle[j].side[k])
+                        {
+                            isEqual = false;
+                            break;
+                        }
+                    }
+                    if (isEqual)
+                    {
+                        Console.WriteLine($"{i + 1} {j + 1}");
+                    }
+                }
+            }
+            Console.ReadLine();
         }
     }
 }

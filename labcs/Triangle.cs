@@ -11,53 +11,72 @@ namespace labcs
         public int x;
         public int y;
     };
-    class Triangle
+    public class Triangle
     {
+        
         point[] points;
-        public double[] side = new double[3];
+        public double[] side;
         public double[] angle = new double[3];
         Random r = new Random();
-        public void coordinates()
+        public Triangle()
         {
-            this.points = new point[3];
+            points = new point[3];
             for (int i = 0; i < points.Length; ++i)
             {
-                points[i].x = r.Next(5);
-                points[i].y = r.Next(5);
+                points[i].x = r.Next(0, 5);
+                points[i].y = r.Next(0, 5);
             }
         }
-        public Tuple <double, double, double> getSide()
-        {
-            for (int i = 0; i < side.Length; ++i)
-            {
-                if (i == side.Length - 1) side[i] = Math.Sqrt(Math.Pow(points[i].x - points[0].x, 2) + Math.Pow(points[i].y - points[0].y, 2));
-                else side[i] = Math.Sqrt(Math.Pow(points[i + 1].x - points[i].x, 2) + Math.Pow(points[i + 1].y - points[i].y, 2));
-            }
-            return Tuple.Create(side[0], side[1], side[2]);
 
+        public void PrintPoints()
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                Console.WriteLine($"X = {points[i].x}\t Y = {points[i].y}");
+
+            }
         }
-        public void exist()
+        public void SideLength()
+        {
+            side = new double[3];
+            for (int i = 0; i < 3; i++)
+            {
+                side[i] = Math.Sqrt(Math.Pow(points[(i + 1) % 3].x - points[i].x, 2) + Math.Pow(points[(i + 1) % 3].y - points[i].y, 2));
+                Console.WriteLine((i + 1) + " side length = " + side[i]);
+            }
+        }
+
+        public void Exists()
         {
             if ((side[0] + side[1]) > side[2])
+            {
                 if ((side[0] + side[2]) > side[1])
+                {
                     if ((side[2] + side[1]) > side[0]) Console.WriteLine("exist");
-                    else Console.WriteLine("doesn't exist");
+                }
+            }
+            else Console.WriteLine("doesn't exist");
         }
-        public double getPerimeter()
+        public double GetPerimeter()
         {
             return side[0] + side[1] + side[2];
         }
-        public double getSquare()
+        public double GetSquare()
         {
-            double p = getPerimeter() / 2;
+            double p = GetPerimeter() / 2;
             return Math.Sqrt(p * (p - side[0]) * (p - side[1]) * (p - side[2]));
         }
-        public Tuple<double, double, double> angles()
+
+        public void GetAngles()
         {
-            angle[0] = Math.Acos(Math.Pow(side[1], 2) + Math.Pow(side[2], 2) - Math.Pow(side[0], 2) / 2 * side[1] * side[2]);
-            angle[1] = Math.Acos(Math.Pow(side[0], 2) + Math.Pow(side[2], 2) - Math.Pow(side[1], 2) / 2 * side[0] * side[2]);
-            angle[2] = 180 - (angle[0] + angle[1]);
-            return Tuple.Create(angle[0], angle[1], angle[2]);
+            angle[0] = Math.Cos((Math.Pow(side[0], 2) + Math.Pow(side[2], 2) - Math.Pow(side[1], 2)) / (2 * side[0] * side[2])) * 180 / Math.PI;
+            angle[1] = Math.Cos((Math.Pow(side[0], 2) + Math.Pow(side[1], 2) - Math.Pow(side[2], 2)) / (2 * side[0] * side[1])) * 180 / Math.PI;
+            angle[2] = 180 - angle[0] - angle[1];
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(angle[i]);
+            }
         }
     }
 }
