@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace labcs
 {
-    public struct point 
+    public struct point
     {
         public double x;
         public double y;
     };
     public class Triangle
     {
-        
+
         public point[] points;
         public double[] side;
         public double[] angle = new double[3];
@@ -24,8 +24,8 @@ namespace labcs
             points = new point[3];
             for (int i = 0; i < points.Length; i++)
             {
-                points[i].x = r.Next(-10, 10);
-                points[i].y = r.Next(-10, 10);
+                points[i].x = r.Next(0, 100);
+                points[i].y = r.Next(0, 100);
             }
         }
         public void PrintPoints()
@@ -75,8 +75,8 @@ namespace labcs
         }
         public void GetAngles()
         {
-            angle[0] = Math.Cos((Math.Pow(side[0], 2) + Math.Pow(side[2], 2) - Math.Pow(side[1], 2)) / (2 * side[0] * side[2])) * 180 / Math.PI;
-            angle[1] = Math.Cos((Math.Pow(side[0], 2) + Math.Pow(side[1], 2) - Math.Pow(side[2], 2)) / (2 * side[0] * side[1])) * 180 / Math.PI;
+            angle[0] = Math.Acos((Math.Pow(side[0], 2) + Math.Pow(side[2], 2) - Math.Pow(side[1], 2)) / (2 * side[0] * side[2])) * 180 / Math.PI;
+            angle[1] = Math.Acos((Math.Pow(side[0], 2) + Math.Pow(side[1], 2) - Math.Pow(side[2], 2)) / (2 * side[0] * side[1])) * 180 / Math.PI;
             angle[2] = 180 - angle[0] - angle[1];
         }
         public void PrintAngles()
@@ -88,7 +88,7 @@ namespace labcs
         }
         public void PrintInfo()
         {
-            
+
             PrintPoints();
             PrintSide();
             PrintAngles();

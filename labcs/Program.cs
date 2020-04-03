@@ -60,8 +60,8 @@ namespace labcs
                 do
                 {
                     equilaterals[i] = new Equilateral(seed++);
-                    equilaterals[i].eq();
                     equilaterals[i].SideLength();
+                    equilaterals[i].GetAngles();
                 } while (!equilaterals[i].IsEqualSide() || !equilaterals[i].IsExists());
                 Console.WriteLine("NUMBER: " + (i + 1));
                 Console.WriteLine("Median = " + equilaterals[i].GetMed());
